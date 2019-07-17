@@ -1,26 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import './App.css';
+import 'ol/ol.css';
+import 'antd/dist/antd.css';
+import './react-geo.css';
+
+import OlMap from 'ol/Map';
+import OlView from 'ol/View';
+import OlLayerTile from 'ol/layer/Tile';
+import OlSourceOsm from 'ol/source/OSM';
+
+import {
+  MapComponent
+} from '@terrestris/react-geo';
+
+const layer = new OlLayerTile({
+  source: new OlSourceOsm()
+});
+
+const center = [ 788453.4890155146, 6573085.729161344 ];
+
+// create a new instance of ol.map in ES6 syntax
+const map = new OlMap({
+  view: new OlView({
+    center: center,
+    zoom: 16,
+  }),
+  layers: [layer]
+});
+
+map.on('postcompose', map.updateSize);
+
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <MapComponent
+          map={map}
+        />
+      </div>
+    );
+  }
 }
 
 export default App;
