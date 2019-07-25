@@ -3,42 +3,43 @@ import BarChart from './BarChart';
 
 function Section(props) {
   return(
-    <div className="container">
+    <div className="container-fluid">
       <div className="row">
         <div className="col-sm-6">
           <h2>{props.featureName}</h2>
-          <table class="table table-dark">
+          <table className="table table-dark">
             <thead>
             <tr>
-              <th scope="col">#</th>
-              <th scope="col">First</th>
-              <th scope="col">Last</th>
-              <th scope="col">Handle</th>
+              <th scope="col">Mes</th>
+              <th scope="col">Q med (m3/s)</th>
+              <th scope="col">Q min (m3/s)</th>
+              <th scope="col">Q max (m3/s)</th>
             </tr>
             </thead>
             <tbody>
             <tr>
               <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
+              <td>2,85</td>
+              <td>2,85</td>
+              <td>2,85</td>
             </tr>
             <tr>
               <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
+              <td>2,85</td>
+              <td>2,85</td>
+              <td>2,85</td>
             </tr>
             <tr>
               <th scope="row">3</th>
-              <td>Larry</td>
-              <td>the Bird</td>
-              <td>@twitter</td>
+              <td>2,85</td>
+              <td>2,85</td>
+              <td>2,85</td>
             </tr>
             </tbody>
           </table>
         </div>
         <div id="chart" className="col-sm-6">
+          <h2>Chart</h2>
           <BarChart/>
         </div>
       </div>

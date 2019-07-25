@@ -19,8 +19,8 @@ class Mapa extends Component {
     this.state = {
         featureName:'',
         featureTable:[],
-        center: [0, 0],
-        zoom: 1,
+        center: [-67.778800, -54.143924],
+        zoom: 8,
      };
      //Mapa. OpenStreetMap layer
      this.layer = new TileLayer({
@@ -44,7 +44,8 @@ class Mapa extends Component {
       ],
       view: new OlView({
         center: this.state.center,
-        zoom: this.state.zoom
+        zoom: this.state.zoom,
+        projection: 'EPSG:4326' //world geodetic system
       })
     });
 
@@ -61,7 +62,7 @@ class Mapa extends Component {
        console.log(feature.get("table"));
        this.setState({featureName:feature.get("name"),featureTable:feature.get("table"), center: [0,0]})
      }else{
-       this.setState({featureName:'Limpiar', center: [0,0]})
+       this.setState({featureName:'Limpiar'})
 
      }
   }
@@ -69,11 +70,11 @@ class Mapa extends Component {
   componentDidMount() {
     this.olmap.setTarget("map");
 
-    this.olmap.on("moveend", () => {
+    /*this.olmap.on("moveend", () => {
       let center = this.olmap.getView().getCenter();
       let zoom = this.olmap.getView().getZoom();
       this.setState({ center, zoom });
-    });
+    });*/
 
     //Evento de click sobre el mapa
     this.olmap.on('click', (evt) => {

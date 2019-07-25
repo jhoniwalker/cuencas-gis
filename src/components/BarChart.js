@@ -18,15 +18,15 @@ class BarChart extends Component {
     const svg = d3.select("#chart")
     .append("svg")
     .attr("width", 300)
-    .attr("height", 500)
-    .style("margin-top", -300);
+    .attr("height", 100)
+    //.style("margin-top", -350);
 
     svg.selectAll("rect")
       .data(data)
       .enter()
       .append("rect")
       .attr("x", (d, i) => i * 70)
-      .attr("y", (d, i) => 500 - 10 * d)
+      .attr("y", (d, i) => 100 - 10 * d)
       .attr("width", 65)
       .attr("height", (d, i) => d * 10)
       .attr("fill", "green")
