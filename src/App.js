@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 //Navbar
 import Navbar from './components/Navbar';
 import Mapa from './components/Mapa';
+import Section from './components/Section';
 
 class App extends Component {
   render() {
