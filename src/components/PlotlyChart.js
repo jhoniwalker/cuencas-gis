@@ -7,14 +7,14 @@ class PlotlyChart extends React.Component {
       <Plot
         data={[
           {
-            x: [1, 2, 3],
-            y: [2, 6, 3],
+            x: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
+            y: [2.85, 2.81, 2.63, 3.38, 4.02, 6.57, 7.36, 6.36, 7.52, 4.18, 3.16, 2,73],
             type: 'scatter',
             mode: 'lines+markers',
             marker: {color: 'red'},
           },
         ]}
-        layout={{ title: '',
+        layout={{ title: 'Caudal medio',
                   xaxis: {
                     title: 'Meses',
                     showgrid: false,
