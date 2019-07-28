@@ -19,7 +19,7 @@ class Mapa extends Component {
     this.state = {
         featureName:'',
         featureTable:[],
-        center: [-67.778800, -54.143924],
+        center: [-7573454.810866, -7162149.550321],
         zoom: 8,
      };
      //Mapa. OpenStreetMap layer
@@ -45,7 +45,7 @@ class Mapa extends Component {
       view: new OlView({
         center: this.state.center,
         zoom: this.state.zoom,
-        projection: 'EPSG:4326' //world geodetic system
+        //projection: 'EPSG:4326' //world geodetic system
       })
     });
 
@@ -92,8 +92,18 @@ class Mapa extends Component {
   render() {
     return (
       <React.Fragment>
-        <div id="map" style={{ width: "100%", height: "400px" }}>
+        <div className="container-fluid">
+          <div id="map" style={{ width: "100%", height: "400px" }}>
+          </div>
         </div>
+        <section className="mt-4">
+          <div class="row">
+            <div class="col text-center text-uppercase">
+                <h2>Información de la capa</h2>
+            </div>
+          </div>
+        </section>
+        <Section featureName = {this.state.featureName}/>
         <Section featureName = {this.state.featureName}/>
       </React.Fragment>
     );

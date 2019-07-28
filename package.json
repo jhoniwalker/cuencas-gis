@@ -6,14 +6,15 @@
     "@terrestris/react-geo": "^11.4.3",
     "antd": "^3.20.3",
     "bootstrap": "^4.3.1",
-    "d3": "^5.9.7",
     "ol": "^5.3.3",
+    "plotly.js": "^1.49.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-plotly.js": "^2.3.0",
     "react-scripts": "3.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts --max_old_space_size=4096 start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
