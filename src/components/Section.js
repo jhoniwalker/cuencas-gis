@@ -10,44 +10,43 @@ function Section(props) {
           <div className="col-sm-6">
           <div class="card">
             <div class="card-body">
-              <h3 class="card-title">{props.featureName}</h3>
-                <table className="table table-dark">
-                  <thead>
-                  <tr>
-                    <th scope="col">Mes</th>
-                    <th scope="col">Q med (m3/s)</th>
-                    <th scope="col">Q min (m3/s)</th>
-                    <th scope="col">Q max (m3/s)</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>2,85</td>
-                    <td>2,85</td>
-                    <td>2,85</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>2,85</td>
-                    <td>2,85</td>
-                    <td>2,85</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>2,85</td>
-                    <td>2,85</td>
-                    <td>2,85</td>
-                  </tr>
-                  </tbody>
-                </table>
+              <div class="table-responsive">
+                <Plot
+                  data={[{
+                          type: 'table',
+                          header: {
+                            values: [["<b>Mes</b>"], ["<b>Q med (m3/s)</b>"],
+                        				 ["<b>Q min (m3/s)</b>"], ["<b>Q max (m3/s)</b>"]],
+                            align: "center",
+                            line: {width: 1, color: 'black'},
+                            fill: {color: "grey"},
+                            font: {family: "Arial", size: 12, color: "white"}
+                          },
+                          cells: {
+                            values: [
+                                      ['ene', 'feb', 'mar', 'abr'],
+                                      [20000, 20000, 80000, 2000],
+                                      [20000, 20000, 70000, 2000],
+                                      [20000, 20000, 120000, 2000],
+                                      ],
+                            align: "center",
+                            line: {color: "black", width: 1},
+                            font: {family: "Arial", size: 11, color: ["black"]}
+                          }
+                        }]}
+                  layout={{ title: props.featureName,
+                            //autosize: true,
+                  }}
+                  //useResizeHandler
+                  style={{ width: '100%', height: '100%' }}
+                />
+              </div>
               </div>
             </div>
           </div>
           <div className="col-sm-6">
             <div class="card">
               <div class="card-body">
-                <h3 class="card-title">Caudal medio anual</h3>
                 <PlotlyChart/>
               </div>
             </div>
