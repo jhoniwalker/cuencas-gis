@@ -21,6 +21,10 @@ class Mapa extends Component {
         featureTable:[],
         center: [-7573454.810866, -7162149.550321],
         zoom: 8,
+        x : [],
+        y : [],
+        xaxisTitle : '',
+        yaxisTitle : '',
      };
      //Mapa. OpenStreetMap layer
      this.layer = new TileLayer({
@@ -60,9 +64,22 @@ class Mapa extends Component {
 
      if (feature) {
        console.log(feature.get("table"));
-       this.setState({featureName:feature.get("name"),featureTable:feature.get("table"), center: [0,0]})
+       this.setState({featureName:feature.get("name"),
+                      featureTable:feature.get("table"),
+                      center: [0,0],
+                      x : ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
+                      y : [2.85, 2.81, 2.63, 3.38, 4.02, 6.57, 7.36, 6.36, 7.52, 4.18, 3.16, 2,73],
+                      xaxisTitle : 'Meses',
+                      yaxisTitle : 'Q med (m3/s)'
+
+     })
      }else{
-       this.setState({featureName:'Limpiar'})
+       this.setState({featureName:'',
+                       x : [],
+                       y : [],
+                       xaxisTitle : '',
+                       yaxisTitle : ''
+        })
 
      }
   }
@@ -96,15 +113,17 @@ class Mapa extends Component {
           <div id="map" style={{ width: "100%", height: "400px" }}>
           </div>
         </div>
-        <section className="mt-4">
-          <div class="row">
-            <div class="col text-center text-uppercase">
-                <h2>Información de la capa</h2>
-            </div>
-          </div>
-        </section>
-        <Section featureName = {this.state.featureName}/>
-        <Section featureName = {this.state.featureName}/>
+
+        <Section
+          featureName = {this.state.featureName} x={this.state.x}
+          y={this.state.y} xaxisTitle={this.state.xaxisTitle}
+          yaxisTitle={this.state.yaxisTitle}
+        />
+        <Section
+          featureName = {this.state.featureName} x={this.state.x}
+          y={this.state.y} xaxisTitle={this.state.xaxisTitle}
+          yaxisTitle={this.state.yaxisTitle}
+        />
       </React.Fragment>
     );
   }

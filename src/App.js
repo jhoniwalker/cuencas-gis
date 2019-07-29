@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Navbar from './components/Navbar';
 import Mapa from './components/Mapa';
 import Section from './components/Section';
+import Footer from './components/Footer';
 
 class App extends Component {
   render() {
@@ -10,6 +11,7 @@ class App extends Component {
       <div className="App">
         <Navbar/>
         <Mapa/>
+        <Footer/>
       </div>
     );
   }
