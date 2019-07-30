@@ -5,13 +5,19 @@ import OlView from "ol/View";
 import OlLayerTile from "ol/layer/Tile";
 //OpenStreetMap
 import OlSourceOsm from "ol/source/OSM";
+//Bing
+import BingMaps from 'ol/source/BingMaps';
+//Stamen
+import Stamen from 'ol/source/Stamen';
 import {Tile as TileLayer, Vector as VectorLayer} from 'ol/layer';
 import VectorSource from 'ol/source/Vector';
 //geojson
 import Feature from 'ol/Feature';
 import GeoJSON from 'ol/format/GeoJSON';
-import geojsonFile from '../data/geojson-files/argentina.geojson';
+import geojsonFile from '../data/geojson-files/cuanca_rg_prueba.geojson';
+//component
 import Section from './Section';
+import LayerButton from './LayerButton';
 
 class Mapa extends Component {
   constructor(props) {
@@ -28,7 +34,9 @@ class Mapa extends Component {
      };
      //Mapa. OpenStreetMap layer
      this.layer = new TileLayer({
-       source: new OlSourceOsm()
+       source: new Stamen({
+              layer: 'watercolor'
+            })
      });
     //geojson
     this.vectorSource = new VectorSource({
@@ -59,12 +67,13 @@ class Mapa extends Component {
   displayFeatureInfo(pixel) {
 
      var feature = this.olmap.forEachFeatureAtPixel(pixel, function(feature) {
+       console.log(feature);
        return feature;
      });
 
      if (feature) {
-       console.log(feature.get("table"));
-       this.setState({featureName:feature.get("name"),
+       console.log(feature.get("Name"));
+       this.setState({featureName:feature.get("Name"),
                       featureTable:feature.get("table"),
                       center: [0,0],
                       x : ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
@@ -110,10 +119,14 @@ class Mapa extends Component {
     return (
       <React.Fragment>
         <div className="container-fluid">
-          <div id="map" style={{ width: "100%", height: "400px" }}>
-          </div>
+          <div className="row">
+            <div className="col-sm-12">
+              <LayerButton/>
+              <div id="map" style={{ width: "100%", height: "400px" }}>
+              </div>
+            </div>
+          </div>  
         </div>
-
         <Section
           featureName = {this.state.featureName} x={this.state.x}
           y={this.state.y} xaxisTitle={this.state.xaxisTitle}

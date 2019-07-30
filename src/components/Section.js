@@ -8,17 +8,17 @@ function Section(props) {
       <div className="container-fluid">
         <div className="row">
           <div className="col-sm-6">
-          <div class="card">
-            <div class="card-body">
-              <div class="table-responsive">
+          <div className="card">
+            <div className="card-body">
+              <div className="table-responsive">
                 <PlotlyTable title={props.featureName}/>
               </div>
               </div>
             </div>
           </div>
           <div className="col-sm-6">
-            <div class="card">
-              <div class="card-body">
+            <div className="card">
+              <div className="card-body">
                 <PlotlyChart
                   title={props.featureName}
                   x={props.x} y={props.y}

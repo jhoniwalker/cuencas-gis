@@ -3,12 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.20",
+    "@fortawesome/free-solid-svg-icons": "^5.10.0",
+    "@fortawesome/react-fontawesome": "^0.1.4",
     "@terrestris/react-geo": "^11.4.3",
     "antd": "^3.20.3",
     "bootstrap": "^4.3.1",
     "ol": "^5.3.3",
     "plotly.js": "^1.49.0",
     "react": "^16.8.6",
+    "react-bootstrap": "^1.0.0-beta.10",
     "react-dom": "^16.8.6",
     "react-plotly.js": "^2.3.0",
     "react-scripts": "3.0.1"
@@ -33,5 +37,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "devDependencies": {}
 }
