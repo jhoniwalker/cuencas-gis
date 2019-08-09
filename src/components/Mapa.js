@@ -31,11 +31,20 @@ class Mapa extends Component {
         y : [],
         xaxisTitle : '',
         yaxisTitle : '',
+        checked:true,
+        mapaCheck: 'OSM' 
      };
-     //Mapa. OpenStreetMap layer
-     this.layer = new TileLayer({
+     //Mapa. OpenStreetMap tileLayer
+     this.osmLayer = new TileLayer({
+       source: new OlSourceOsm({
+            })
+     });
+
+     //Mapa. Stamen tileLayer
+     this.stamenLayer = new TileLayer({
+       visible: false,
        source: new Stamen({
-              layer: 'watercolor'
+          layer: 'watercolor',
             })
      });
     //geojson
@@ -51,8 +60,10 @@ class Mapa extends Component {
     this.olmap = new OlMap({
       target: null,
       layers: [
-        this.layer,
+        this.osmLayer,
+        this.stamenLayer,
         this.vector
+
       ],
       view: new OlView({
         center: this.state.center,
@@ -63,11 +74,12 @@ class Mapa extends Component {
 
   }
 
-  //función que toma detos del layer geojson y setea variables de estado
+  //función que toma detos del layer geojson y setea variables de estado, que se visualizan en el dom.
   displayFeatureInfo(pixel) {
 
      var feature = this.olmap.forEachFeatureAtPixel(pixel, function(feature) {
        console.log(feature);
+       console.log('click mapa');
        return feature;
      });
 
@@ -93,14 +105,57 @@ class Mapa extends Component {
      }
   }
 
+  //control de capas
+  async capaControl(){
+
+    console.log(this.olmap.getLayers().array_)
+    await this.setState({
+      checked:!this.state.checked
+    })
+    await console.log(this.state.checked)
+    await this.olmap.getLayers().array_[2].setVisible(this.state.checked)
+
+  }
+
+  
+  //control de mapas
+  mapaControl(event){
+
+    switch(event.target.value){
+      case 'OSM':
+        this.setState({mapaCheck:event.target.value})
+        this.olmap.getLayers().array_[1].setVisible(false)
+        this.olmap.getLayers().array_[0].setVisible(true)
+      break;
+      case 'Stamen':
+        this.setState({mapaCheck:event.target.value})
+        this.olmap.getLayers().array_[0].setVisible(false)
+        this.olmap.getLayers().array_[1].setVisible(true)
+      break;  
+    }  
+
+  }
+  
+  handleCheckMap = (event) => {
+
+    this.mapaControl(event)
+  }
+
+  handleCheckCapa = (event) => {
+    
+    this.capaControl()
+
+  }
+  
+  /*para que funcionen los props desde 
+  el mapa al button o modal se debe mover o clickear el mapa.*/
   componentDidMount() {
+
     this.olmap.setTarget("map");
 
-    /*this.olmap.on("moveend", () => {
-      let center = this.olmap.getView().getCenter();
-      let zoom = this.olmap.getView().getZoom();
-      this.setState({ center, zoom });
-    });*/
+    this.olmap.on("moveend", () => {
+      console.log('move')
+    });
 
     //Evento de click sobre el mapa
     this.olmap.on('click', (evt) => {
@@ -116,12 +171,13 @@ class Mapa extends Component {
   }
 
   render() {
+    console.log(this.state.mapaCheck)
     return (
       <React.Fragment>
         <div className="container-fluid">
           <div className="row">
             <div className="col-sm-12">
-              <LayerButton/>
+              <LayerButton checked={this.state.checked} handleCheck={this.handleCheckCapa} handleCheckMap={this.handleCheckMap} mapaCheck={this.state.mapaCheck}/>
               <div id="map" style={{ width: "100%", height: "400px" }}>
               </div>
             </div>

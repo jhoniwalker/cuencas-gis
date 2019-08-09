@@ -14,19 +14,19 @@ const style = {
           borderColor: 'white'
   }
 
-function LayerButton() {
+function LayerButton(props) {
 
   const [show, setShow] = React.useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
   return (
       <React.Fragment>
         <button type="button" className="btn btn-primary btn-sm"  onClick={handleShow} style={style}>
           <FontAwesomeIcon icon={faLayerGroup} />
         </button>
-        <LayerModal show={show}  handleClose={handleClose}/>
+
+        <LayerModal show={show}  handleClose={handleClose} checked={props.checked} handleCheck={props.handleCheck} handleCheckMap={props.handleCheckMap} mapaCheck={props.mapaCheck}/>
       </React.Fragment>
 
   );
