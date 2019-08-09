@@ -16,14 +16,10 @@ function LayerModal(props) {
           </Modal.Header>
           <Modal.Body>
             <p><FontAwesomeIcon icon={faLayerGroup} /> Selección de Capas</p>
-            <Form.Group controlId="formBasicChecbox1">
-              <Form.Check type="checkbox" defaultChecked={props.checked} onChange={props.handleCheck} label="Capa 1" />
-            </Form.Group>
-            <Form.Group controlId="formBasicChecbox2">
-              <Form.Check type="checkbox" label="Capa 2" />
-            </Form.Group>
-            <Form.Group controlId="formBasicChecbox3">
-              <Form.Check type="checkbox" label="Capa 3" />
+            <Form.Group>
+              <Form.Check type="checkbox" id="capa-1" defaultChecked={props.checked} onChange={props.handleCheck} label="Capa 1" />
+              <Form.Check type="checkbox" id="capa-2" label="Capa 2" />
+              <Form.Check type="checkbox" id="capa-3" label="Capa 3" />
             </Form.Group>
             <p><FontAwesomeIcon icon={faMap} /> Estilo de Mapas</p>
             <Form.Group>
