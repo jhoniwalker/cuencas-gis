@@ -18,6 +18,7 @@ import geojsonFile from '../data/geojson-files/cuanca_rg_prueba.geojson';
 //component
 import Section from './Section';
 import LayerButton from './LayerButton';
+import LayerModal from './LayerModal';
 
 class Mapa extends Component {
   constructor(props) {
@@ -32,7 +33,8 @@ class Mapa extends Component {
         xaxisTitle : '',
         yaxisTitle : '',
         checked:true,
-        mapaCheck: 'OSM' 
+        mapaCheck: 'OSM',
+        modalIsOpen:false 
      };
      //Mapa. OpenStreetMap tileLayer
      this.osmLayer = new TileLayer({
@@ -146,6 +148,14 @@ class Mapa extends Component {
     this.capaControl()
 
   }
+
+  handleOpenModal = e => {
+    this.setState({ modalIsOpen: true });
+  };
+
+  handleCloseModal = e => {
+    this.setState({ modalIsOpen: false });
+  };
   
   /*para que funcionen los props desde 
   el mapa al button o modal se debe mover o clickear el mapa.*/
@@ -171,13 +181,23 @@ class Mapa extends Component {
   }
 
   render() {
-    console.log(this.state.mapaCheck)
     return (
       <React.Fragment>
         <div className="container-fluid">
           <div className="row">
             <div className="col-sm-12">
-              <LayerButton checked={this.state.checked} handleCheck={this.handleCheckCapa} handleCheckMap={this.handleCheckMap} mapaCheck={this.state.mapaCheck}/>
+              <LayerButton
+                handleOpenModal={this.handleOpenModal}
+              />
+              <LayerModal   
+                checked={this.state.checked} 
+                handleCheck={this.handleCheckCapa} 
+                handleCheckMap={this.handleCheckMap} 
+                mapaCheck={this.state.mapaCheck}
+                modalIsOpen={this.state.modalIsOpen}
+                handleOpenModal={this.handleOpenModal}
+                handleCloseModal={this.handleCloseModal}
+              />
               <div id="map" style={{ width: "100%", height: "400px" }}>
               </div>
             </div>
