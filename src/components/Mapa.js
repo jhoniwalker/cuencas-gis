@@ -4,7 +4,7 @@ import OlMap from "ol/Map";
 import OlView from "ol/View";
 import OlLayerTile from "ol/layer/Tile";
 //OpenStreetMap
-import OlSourceOsm from "ol/source/OSM";
+import OlSourceOsm, {ATTRIBUTION} from "ol/source/OSM";
 //Bing
 import BingMaps from 'ol/source/BingMaps';
 //Stamen
@@ -14,7 +14,11 @@ import VectorSource from 'ol/source/Vector';
 //geojson
 import Feature from 'ol/Feature';
 import GeoJSON from 'ol/format/GeoJSON';
-import geojsonFile from '../data/geojson-files/cuanca_rg_prueba.geojson';
+import geojsonFile from '../data/geojson-files/rios_tdf.geojson';
+import cuencaRG from '../data/geojson-files/cuenca_rio_grande.geojson';
+import cuencaRC from '../data/geojson-files/cuenca_rio_chico.geojson';
+//service
+import { fetchCaudalesData } from '../services/CaudalesService'; 
 //component
 import Section from './Section';
 import LayerButton from './LayerButton';
@@ -33,12 +37,26 @@ class Mapa extends Component {
         xaxisTitle : '',
         yaxisTitle : '',
         checked:true,
+        cuencaRgChecked:true,
+        cuencaRcChecked:true,
         mapaCheck: 'OSM',
         modalIsOpen:false 
      };
      //Mapa. OpenStreetMap tileLayer
      this.osmLayer = new TileLayer({
        source: new OlSourceOsm({
+            })
+     });
+
+     //Mapa. OpenStreetMap lanscape curvas de nivel tileLayer
+     this.osmLanscape = new TileLayer({
+       visible:false, 
+       source: new OlSourceOsm({
+          attributions: [
+            'All maps © <a href="http://www.opencyclemap.org/?layers=00B00">OpenCycleMap</a>',
+            ATTRIBUTION
+          ],
+          url: 'https://tile.thunderforest.com/landscape/{z}/{x}/{y}.png?apikey=5944047da3314986b605f064897c668c'
             })
      });
 
@@ -49,6 +67,15 @@ class Mapa extends Component {
           layer: 'watercolor',
             })
      });
+
+     //Mapa. Bing
+     this.bingMaps = new TileLayer({
+      visible: false,
+      source: new BingMaps({
+            key:'AtBMqCJREGAL9f2_1EKoTkUp_OPgTAPMxQI-m-kGrPV1y-8-6c4-5dq-QVygo9ff',
+            imagerySet:'Aerial'
+          })
+     }) 
     //geojson
     this.vectorSource = new VectorSource({
      url:geojsonFile,
@@ -59,12 +86,36 @@ class Mapa extends Component {
       source: this.vectorSource
     });
 
+    //geojson cuenca rio grande
+    this.cuencaRgSource = new VectorSource({
+      url: cuencaRG,
+      format:new GeoJSON()
+    });
+
+    this.cuencaRgVector = new VectorLayer({
+      source:this.cuencaRgSource
+    })
+
+    //geojson cuenca rio chico
+    this.cuencaRcSource = new VectorSource({
+      url: cuencaRC,
+      format:new GeoJSON()
+    });
+
+    this.cuencaRcVector = new VectorLayer({
+      source:this.cuencaRcSource
+    })
+
     this.olmap = new OlMap({
       target: null,
       layers: [
         this.osmLayer,
+        this.osmLanscape,
         this.stamenLayer,
-        this.vector
+        this.bingMaps,
+        this.vector,
+        this.cuencaRgVector,
+        this.cuencaRcVector
 
       ],
       view: new OlView({
@@ -86,14 +137,22 @@ class Mapa extends Component {
      });
 
      if (feature) {
-       console.log(feature.get("Name"));
-       this.setState({featureName:feature.get("Name"),
+        //será un service
+        fetchCaudalesData(feature.get("URL"))
+        .then((response)=>{
+          console.log(response.caudales_promedio[0].data)
+          this.setState({featureName:feature.get("Name"),
                       featureTable:feature.get("table"),
                       center: [0,0],
                       x : ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
-                      y : [2.85, 2.81, 2.63, 3.38, 4.02, 6.57, 7.36, 6.36, 7.52, 4.18, 3.16, 2,73],
+                      y : response.caudales_promedio[0].data,
                       xaxisTitle : 'Meses',
-                      yaxisTitle : 'Q med (m3/s)'
+                      yaxisTitle : response.caudales_promedio[0].title
+
+        })
+       
+
+       
 
      })
      }else{
@@ -108,14 +167,35 @@ class Mapa extends Component {
   }
 
   //control de capas
-  async capaControl(){
+  async capaControl(event){
 
-    console.log(this.olmap.getLayers().array_)
+     switch(event.target.id){
+      case 'rios':
+        await this.setState({
+          checked:!this.state.checked
+        })
+        await console.log(this.state.checked)
+        await this.olmap.getLayers().array_[4].setVisible(this.state.checked)
+      break;
+      case 'cuenca_rg':
+        await this.setState({
+          cuencaRgChecked:!this.state.cuencaRgChecked
+        })
+        await this.olmap.getLayers().array_[5].setVisible(this.state.cuencaRgChecked)
+      case 'cuenca_rc':
+        await this.setState({
+          cuencaRcChecked:!this.state.cuencaRcChecked
+        })
+        await this.olmap.getLayers().array_[6].setVisible(this.state.cuencaRcChecked)  
+      break;  
+    }  
+
+   /* console.log(this.olmap.getLayers().array_)
     await this.setState({
       checked:!this.state.checked
     })
     await console.log(this.state.checked)
-    await this.olmap.getLayers().array_[2].setVisible(this.state.checked)
+    await this.olmap.getLayers().array_[2].setVisible(this.state.checked)*/
 
   }
 
@@ -127,13 +207,32 @@ class Mapa extends Component {
       case 'OSM':
         this.setState({mapaCheck:event.target.value})
         this.olmap.getLayers().array_[1].setVisible(false)
+        this.olmap.getLayers().array_[2].setVisible(false)
+        this.olmap.getLayers().array_[3].setVisible(false)
         this.olmap.getLayers().array_[0].setVisible(true)
+      break;
+      case 'OSMLanscape':
+        this.setState({mapaCheck:event.target.value})
+        this.olmap.getLayers().array_[0].setVisible(false)
+        this.olmap.getLayers().array_[2].setVisible(false)
+        this.olmap.getLayers().array_[3].setVisible(false)
+        this.olmap.getLayers().array_[1].setVisible(true)
       break;
       case 'Stamen':
         this.setState({mapaCheck:event.target.value})
         this.olmap.getLayers().array_[0].setVisible(false)
-        this.olmap.getLayers().array_[1].setVisible(true)
+        this.olmap.getLayers().array_[1].setVisible(false)
+        this.olmap.getLayers().array_[3].setVisible(false)
+        this.olmap.getLayers().array_[2].setVisible(true)
       break;  
+      case 'Bing':
+        console.log( this.olmap.getLayers().array_)
+        this.setState({mapaCheck:event.target.value})
+        this.olmap.getLayers().array_[0].setVisible(false)
+        this.olmap.getLayers().array_[1].setVisible(false)
+        this.olmap.getLayers().array_[2].setVisible(false)
+        this.olmap.getLayers().array_[3].setVisible(true)
+      break; 
     }  
 
   }
@@ -144,8 +243,8 @@ class Mapa extends Component {
   }
 
   handleCheckCapa = (event) => {
-    
-    this.capaControl()
+    console.log(event.target.id)
+    this.capaControl(event)
 
   }
 
@@ -191,6 +290,8 @@ class Mapa extends Component {
               />
               <LayerModal   
                 checked={this.state.checked} 
+                cuencaRgChecked={this.state.cuencaRgChecked}
+                cuencaRcChecked={this.state.cuencaRcChecked}
                 handleCheck={this.handleCheckCapa} 
                 handleCheckMap={this.handleCheckMap} 
                 mapaCheck={this.state.mapaCheck}

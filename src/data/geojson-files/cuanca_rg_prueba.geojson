@@ -1,8 +1,0 @@
-{
-"type": "FeatureCollection",
-"name": "cuanca_rg_prueba",
-"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
-"features": [
-{ "type": "Feature", "properties": { "Name": "Cuenca del Río Grande", "description": null, "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": 1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -68.606440837428551, -53.908515905476413, 0.0 ], [ -68.440601912770845, -53.975356160297011, 0.0 ], [ -67.961614518517152, -53.958653650629927, 0.0 ], [ -67.719407705683608, -53.877883068807492, 0.0 ], [ -67.66748324708098, -53.796000693395641, 0.0 ], [ -67.707989078206481, -53.779384679923567, 0.0 ], [ -68.13189471439064, -53.74559633787959, 0.0 ], [ -68.60501532987449, -53.796328081555721, 0.0 ], [ -68.606440837428551, -53.908515905476413, 0.0 ] ] ] } }
-]
-}
