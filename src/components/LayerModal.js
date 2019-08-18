@@ -22,7 +22,7 @@ function LayerModal(props) {
         <Form.Group>
           <Form.Check type="checkbox" id="rios" defaultChecked={props.checked} onChange={props.handleCheck} label="Ríos" />
           <Form.Check type="checkbox" id="cuenca_rg" defaultChecked={props.cuencaRgChecked} onChange={props.handleCheck} label="Cuenca del Rio Grande" />
-          <Form.Check type="checkbox" id="cuenca_rc" defaultChecked={props.cuencaRgChecked} onChange={props.handleCheck} label="Cuenca del Río Chico" />
+          <Form.Check type="checkbox" id="cuenca_rc" defaultChecked={props.cuencaRcChecked} onChange={props.handleCheck} label="Cuenca del Río Chico" />
         </Form.Group>
         <p><FontAwesomeIcon icon={faMap} /> Estilo de Mapas</p>
         <Form.Group>

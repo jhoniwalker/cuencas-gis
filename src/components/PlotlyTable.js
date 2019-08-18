@@ -16,17 +16,17 @@ function PlotlyTable(props) {
               },
               cells: {
                 values: [
-                          ['ene', 'feb', 'mar', 'abr'],
-                          [20000, 20000, 80000, 2000],
-                          [20000, 20000, 70000, 2000],
-                          [20000, 20000, 120000, 2000],
+                          props.x,
+                          props.caudalesData.caudales_promedio[0].data,
+                          props.caudalesData.caudales_promedio[1].data,
+                          props.caudalesData.caudales_promedio[2].data,
                           ],
                 align: "center",
                 line: {color: "black", width: 1},
                 font: {family: "Arial", size: 11, color: ["black"]}
               }
             }]}
-      layout={{ title: props.title,
+      layout={{ title: props.caudalesData.nombre,
                 //autosize: true,
       }}
       //useResizeHandler

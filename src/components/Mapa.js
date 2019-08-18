@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, forwardRef } from "react";
 import 'ol/ol.css';
 import OlMap from "ol/Map";
 import OlView from "ol/View";
@@ -32,7 +32,7 @@ class Mapa extends Component {
         featureTable:[],
         center: [-7573454.810866, -7162149.550321],
         zoom: 8,
-        x : [],
+        x : ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
         y : [],
         xaxisTitle : '',
         yaxisTitle : '',
@@ -40,8 +40,12 @@ class Mapa extends Component {
         cuencaRgChecked:true,
         cuencaRcChecked:true,
         mapaCheck: 'OSM',
-        modalIsOpen:false 
+        modalIsOpen:false,
+        caudalesData:{},
+        showSection:false
      };
+
+     this.myRef = React.createRef();
      //Mapa. OpenStreetMap tileLayer
      this.osmLayer = new TileLayer({
        source: new OlSourceOsm({
@@ -132,35 +136,25 @@ class Mapa extends Component {
 
      var feature = this.olmap.forEachFeatureAtPixel(pixel, function(feature) {
        console.log(feature);
-       console.log('click mapa');
        return feature;
      });
 
      if (feature) {
-        //será un service
+        //Obtengo os datos desde el archivo json
         fetchCaudalesData(feature.get("URL"))
         .then((response)=>{
-          console.log(response.caudales_promedio[0].data)
+          //console.log(response.caudales_promedio[0].data)
           this.setState({featureName:feature.get("Name"),
                       featureTable:feature.get("table"),
                       center: [0,0],
-                      x : ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
-                      y : response.caudales_promedio[0].data,
-                      xaxisTitle : 'Meses',
-                      yaxisTitle : response.caudales_promedio[0].title
-
+                      caudalesData:response,
+                      showSection:true,
         })
-       
-
-       
-
-     })
+       })
      }else{
        this.setState({featureName:'',
-                       x : [],
-                       y : [],
-                       xaxisTitle : '',
-                       yaxisTitle : ''
+                       showSection:false,
+
         })
 
      }
@@ -174,7 +168,6 @@ class Mapa extends Component {
         await this.setState({
           checked:!this.state.checked
         })
-        await console.log(this.state.checked)
         await this.olmap.getLayers().array_[4].setVisible(this.state.checked)
       break;
       case 'cuenca_rg':
@@ -182,6 +175,7 @@ class Mapa extends Component {
           cuencaRgChecked:!this.state.cuencaRgChecked
         })
         await this.olmap.getLayers().array_[5].setVisible(this.state.cuencaRgChecked)
+      break;
       case 'cuenca_rc':
         await this.setState({
           cuencaRcChecked:!this.state.cuencaRcChecked
@@ -236,7 +230,8 @@ class Mapa extends Component {
     }  
 
   }
-  
+
+ 
   handleCheckMap = (event) => {
 
     this.mapaControl(event)
@@ -258,7 +253,7 @@ class Mapa extends Component {
   
   /*para que funcionen los props desde 
   el mapa al button o modal se debe mover o clickear el mapa.*/
-  componentDidMount() {
+  componentDidMount() { 
 
     this.olmap.setTarget("map");
 
@@ -277,6 +272,27 @@ class Mapa extends Component {
     let zoom = this.olmap.getView().getZoom();
     if (center === nextState.center && zoom === nextState.zoom) return false;
     return true;
+  }
+
+
+    showSections(){
+
+    if(this.state.showSection){
+
+      return <Section
+              ref={this.myRef}
+              caudalesData = {this.state.caudalesData} 
+              x={this.state.x}
+              xaxisTitle={this.state.xaxisTitle}
+            />         
+    }
+
+  }
+
+  componentWillUpdate() {
+    const node = this.node;
+    this.shouldScrollBottom = node.scrollTop
+        + node.offsetHeight === node.scrollHeight;
   }
 
   render() {
@@ -299,21 +315,14 @@ class Mapa extends Component {
                 handleOpenModal={this.handleOpenModal}
                 handleCloseModal={this.handleCloseModal}
               />
-              <div id="map" style={{ width: "100%", height: "400px" }}>
+              <div id="map" style={{ width: "100%", height: "600px" }}>
               </div>
             </div>
           </div>  
         </div>
-        <Section
-          featureName = {this.state.featureName} x={this.state.x}
-          y={this.state.y} xaxisTitle={this.state.xaxisTitle}
-          yaxisTitle={this.state.yaxisTitle}
-        />
-        <Section
-          featureName = {this.state.featureName} x={this.state.x}
-          y={this.state.y} xaxisTitle={this.state.xaxisTitle}
-          yaxisTitle={this.state.yaxisTitle}
-        />
+        <div ref={(node) => { this.node = node; }}>
+          {this.showSections()}
+        </div>
       </React.Fragment>
     );
   }
