@@ -13,7 +13,7 @@ function PlotlyChart(props) {
           marker: {color: 'red'},
         },
       ]}
-      layout={{ title: props.title,
+      layout={{ title: props.caudalesData.caudal_desc,
                 xaxis: {
                   title: props.xaxisTitle,
                   showgrid: false,

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 //Navbar
 import Navbar from './components/Navbar';
-import Mapa from './components/Mapa';
+import MapaContainer from './MapaContainer';
 import Section from './components/Section';
 import Footer from './components/Footer';
 
@@ -10,7 +10,7 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar/>
-        <Mapa/>
+        <MapaContainer/>
         <Footer/>
       </div>
     );

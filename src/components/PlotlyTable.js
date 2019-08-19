@@ -26,7 +26,7 @@ function PlotlyTable(props) {
                 font: {family: "Arial", size: 11, color: ["black"]}
               }
             }]}
-      layout={{ title: props.caudalesData.nombre,
+      layout={{ title: props.caudalesData.caudal_desc,
                 //autosize: true,
       }}
       //useResizeHandler

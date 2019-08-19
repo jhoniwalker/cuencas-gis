@@ -1,7 +1,9 @@
 {
 	"id": "1",
-	"nombre": "Cuenca de Río Grande",
+	"nombre": "Cuenca Río Grande",
+	"descripcion":"La cuenca del Río Grande, al igual que la del Río Chico también pertenece a una cuenca compartida con la Republica de Chile. La misma tiene de una superficie total de 857.731 ha, de los cuales 380.530 ha son Argentinas. Para el monitoreo del caudal de agua del curso principal del mismo se cuenta con dos secciones de estudio, una en la zona alta de la cuenca (S 53º54’10.00’’/O 68º31’24.15’’) y la otra en una sección en la zona baja de la misma (S 53º49’03.00/O 67º 5328.82’’). La información brindada corresponde a promedios mensuales estimados de la zona bajade la cuenca, entre los periodos 01/2012 – 08/2016.",
 	"periodo": "01/2012 - 08/2016",
+	"caudal_desc": "Promedios mensuales de caudales",
 	"caudales_promedio":[
 		 {
 		 	"title":"Q med (m3/s)",
