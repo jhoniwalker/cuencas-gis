@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { faLayerGroup, faMap } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; 
 import './styles/LayerModal.css';
-import { Modal, Button, Form } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 
 //usar radiobutton para capas y mapas
 function LayerModal(props) {

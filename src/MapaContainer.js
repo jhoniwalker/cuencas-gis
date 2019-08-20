@@ -3,8 +3,7 @@ import Scroll from 'react-scroll';
 import 'ol/ol.css';
 import OlMap from "ol/Map";
 import OlView from "ol/View";
-import OlLayerTile from "ol/layer/Tile";
-import {defaults as defaultControls, Control} from 'ol/control.js';
+//import OlLayerTile from "ol/layer/Tile";
 //OpenStreetMap
 import OlSourceOsm, {ATTRIBUTION} from "ol/source/OSM";
 //Bing
@@ -194,7 +193,8 @@ class MapaContainer extends Component {
           cuencaRcChecked:!this.state.cuencaRcChecked
         })
         await this.olmap.getLayers().array_[6].setVisible(this.state.cuencaRcChecked)  
-      break;  
+      break;
+      default: //no hace nada  
     }  
 
   }
@@ -233,6 +233,7 @@ class MapaContainer extends Component {
         this.olmap.getLayers().array_[2].setVisible(false)
         this.olmap.getLayers().array_[3].setVisible(true)
       break; 
+      default: //no hace nada
     }  
 
   }

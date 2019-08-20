@@ -1,14 +1,15 @@
 {
   "name": "cuencas-gis",
+  "homepage": "https://jhoniwalker.github.com/cuencas-gis",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.20",
     "@fortawesome/free-solid-svg-icons": "^5.10.0",
     "@fortawesome/react-fontawesome": "^0.1.4",
-    "@terrestris/react-geo": "^11.4.3",
     "antd": "^3.20.3",
     "bootstrap": "^4.3.1",
+    "gh-pages": "^2.1.1",
     "ol": "^5.3.3",
     "plotly.js": "^1.49.0",
     "react": "^16.8.6",
@@ -20,9 +21,11 @@
   },
   "scripts": {
     "start": "react-scripts --max_old_space_size=4096 start",
-    "build": "react-scripts build",
+    "build": "react-scripts --max_old_space_size=4096 build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run --max_old_space_size=4096 build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"

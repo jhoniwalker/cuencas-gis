@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 //Navbar
 import Navbar from './components/Navbar';
 import MapaContainer from './MapaContainer';
-import Section from './components/Section';
 import Footer from './components/Footer';
 
 class App extends Component {
