@@ -21,7 +21,7 @@ import cuencaRG from './data/geojson-files/cuenca_rio_grande.geojson';
 import cuencaRC from './data/geojson-files/cuenca_rio_chico.geojson';
 //service
 import { fetchCaudalesData } from './services/CaudalesService'; 
-//component
+//components
 import Mapa from './components/Mapa';
 import Section from './components/Section';
 import CardData from './components/CardData';
@@ -45,9 +45,9 @@ class MapaContainer extends Component {
         y : [],
         xaxisTitle : 'Mes',
         yaxisTitle : '',
-        checked:true,
-        cuencaRgChecked:true,
-        cuencaRcChecked:true,
+        checked:false,
+        cuencaRgChecked:false,
+        cuencaRcChecked:false,
         mapaCheck: 'OSM',
         modalIsOpen:false,
         caudalesData:{},
@@ -94,6 +94,7 @@ class MapaContainer extends Component {
     });
 
     this.vector = new VectorLayer({
+      visible: false,
       source: this.vectorSource
     });
 
@@ -104,6 +105,7 @@ class MapaContainer extends Component {
     });
 
     this.cuencaRgVector = new VectorLayer({
+      visible: false,
       source:this.cuencaRgSource
     })
 
@@ -114,6 +116,7 @@ class MapaContainer extends Component {
     });
 
     this.cuencaRcVector = new VectorLayer({
+      visible: false,
       source:this.cuencaRcSource
     })
 
@@ -266,9 +269,7 @@ class MapaContainer extends Component {
 
   //para el control de las capas
   handleCheckCapa = (event) => {
-    console.log(event.target.id)
     this.capaControl(event)
-
   }
 
  
@@ -277,9 +278,7 @@ class MapaContainer extends Component {
   };
 
   handleOpenModal = e => {
-    console.log('open the modal now')
     this.setState({ modalIsOpen: true });
-    //console.log(this.state.modalIsOpen)
   };
 
   //muestra las secciones de la página, con datos, luego de hacer click en una capa del mapa
