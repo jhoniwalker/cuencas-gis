@@ -4,6 +4,7 @@ import 'ol/ol.css';
 import OlMap from "ol/Map";
 import OlView from "ol/View";
 import OlLayerTile from "ol/layer/Tile";
+import {defaults as defaultControls, Control} from 'ol/control.js';
 //OpenStreetMap
 import OlSourceOsm, {ATTRIBUTION} from "ol/source/OSM";
 //Bing
@@ -193,13 +194,6 @@ class MapaContainer extends Component {
       break;  
     }  
 
-   /* console.log(this.olmap.getLayers().array_)
-    await this.setState({
-      checked:!this.state.checked
-    })
-    await console.log(this.state.checked)
-    await this.olmap.getLayers().array_[2].setVisible(this.state.checked)*/
-
   }
 
   
@@ -240,26 +234,6 @@ class MapaContainer extends Component {
 
   }
 
-  //para el control de los mapas
-  handleCheckMap = (event) => {
-
-    this.mapaStyleControl(event)
-  }
-
-  //para el control de las capas
-  handleCheckCapa = (event) => {
-    console.log(event.target.id)
-    this.capaControl(event)
-
-  }
-
-  handleOpenModal = e => {
-    this.setState({ modalIsOpen: true });
-  };
-
-  handleCloseModal = e => {
-    this.setState({ modalIsOpen: false });
-  };
   
   /*para que funcionen los props desde 
   el mapa al button o modal se debe mover o clickear el mapa.*/
@@ -277,12 +251,36 @@ class MapaContainer extends Component {
           });
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  /*shouldComponentUpdate(nextProps, nextState) {
     let center = this.olmap.getView().getCenter();
     let zoom = this.olmap.getView().getZoom();
     if (center === nextState.center && zoom === nextState.zoom) return false;
     return true;
+  }*/
+
+  //para el control de los mapas
+  handleCheckMap = (event) => {
+
+    this.mapaStyleControl(event)
   }
+
+  //para el control de las capas
+  handleCheckCapa = (event) => {
+    console.log(event.target.id)
+    this.capaControl(event)
+
+  }
+
+ 
+  handleCloseModal = e => {
+    this.setState({ modalIsOpen: false });
+  };
+
+  handleOpenModal = e => {
+    console.log('open the modal now')
+    this.setState({ modalIsOpen: true });
+    //console.log(this.state.modalIsOpen)
+  };
 
   //muestra las secciones de la página, con datos, luego de hacer click en una capa del mapa
   showSections(){
@@ -351,7 +349,6 @@ class MapaContainer extends Component {
             handleCheckMap={this.handleCheckMap} 
             mapaCheck={this.state.mapaCheck}
             modalIsOpen={this.state.modalIsOpen}
-            handleOpenModal={this.handleOpenModal}
             handleCloseModal={this.handleCloseModal}
           />
         </Mapa>
