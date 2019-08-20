@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/cuencas-gis/static/css/main.0d3a4fa6.chunk.css",
+    "main.js": "/cuencas-gis/static/js/main.8a6e0e38.chunk.js",
+    "main.js.map": "/cuencas-gis/static/js/main.8a6e0e38.chunk.js.map",
+    "runtime~main.js": "/cuencas-gis/static/js/runtime~main.4342ffc0.js",
+    "runtime~main.js.map": "/cuencas-gis/static/js/runtime~main.4342ffc0.js.map",
+    "static/css/2.03649bd7.chunk.css": "/cuencas-gis/static/css/2.03649bd7.chunk.css",
+    "static/js/2.dbd9e8d6.chunk.js": "/cuencas-gis/static/js/2.dbd9e8d6.chunk.js",
+    "static/js/2.dbd9e8d6.chunk.js.map": "/cuencas-gis/static/js/2.dbd9e8d6.chunk.js.map",
+    "index.html": "/cuencas-gis/index.html",
+    "precache-manifest.6785fa05ee5dfda1a98c7c2688986f02.js": "/cuencas-gis/precache-manifest.6785fa05ee5dfda1a98c7c2688986f02.js",
+    "service-worker.js": "/cuencas-gis/service-worker.js",
+    "static/css/2.03649bd7.chunk.css.map": "/cuencas-gis/static/css/2.03649bd7.chunk.css.map",
+    "static/css/main.0d3a4fa6.chunk.css.map": "/cuencas-gis/static/css/main.0d3a4fa6.chunk.css.map",
+    "static/media/cuenca_rio_chico.geojson": "/cuencas-gis/static/media/cuenca_rio_chico.021f190a.geojson",
+    "static/media/cuenca_rio_grande.geojson": "/cuencas-gis/static/media/cuenca_rio_grande.d4c1397b.geojson",
+    "static/media/rios_tdf.geojson": "/cuencas-gis/static/media/rios_tdf.940d8bf9.geojson"
+  }
+}
