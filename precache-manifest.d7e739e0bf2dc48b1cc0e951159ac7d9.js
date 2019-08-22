@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "55508696076078100f7c643438f6ff64",
+    "revision": "41633f1964afc852ee9657340458cb13",
     "url": "/cuencas-gis/index.html"
   },
   {
@@ -8,15 +8,15 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/cuencas-gis/static/css/2.03649bd7.chunk.css"
   },
   {
-    "revision": "7f01462975b017788f24",
-    "url": "/cuencas-gis/static/css/main.444a9ac8.chunk.css"
+    "revision": "05eb8d278db7c0b4d99f",
+    "url": "/cuencas-gis/static/css/main.ee463a36.chunk.css"
   },
   {
     "revision": "1902abe9afdd81c71572",
     "url": "/cuencas-gis/static/js/2.f83e0994.chunk.js"
   },
   {
-    "revision": "7f01462975b017788f24",
+    "revision": "05eb8d278db7c0b4d99f",
     "url": "/cuencas-gis/static/js/main.7deef56d.chunk.js"
   },
   {
