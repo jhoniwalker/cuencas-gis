@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/cuencas-gis/precache-manifest.6785fa05ee5dfda1a98c7c2688986f02.js"
+  "/cuencas-gis/precache-manifest.405328d58c38a55e8f9e8dae44eb89c2.js"
 );
 
 self.addEventListener('message', (event) => {
