@@ -18,6 +18,7 @@ import GeoJSON from 'ol/format/GeoJSON';
 import geojsonFile from './data/geojson-files/rios_tdf.geojson';
 import cuencaRG from './data/geojson-files/cuenca_rio_grande.geojson';
 import cuencaRC from './data/geojson-files/cuenca_rio_chico.geojson';
+import perforaciones from './data/geojson-files/pocitos.geojson';
 //service
 import { fetchCaudalesData } from './services/CaudalesService'; 
 //components
@@ -119,6 +120,17 @@ class MapaContainer extends Component {
       source:this.cuencaRcSource
     })
 
+    //geojson perforaciones
+    this.perforacionesSource = new VectorSource({
+      url: perforaciones,
+      format:new GeoJSON()
+    });
+
+    this.perforacionesVector = new VectorLayer({
+      visible: true,
+      source:this.perforacionesSource
+    })
+
     this.olmap = new OlMap({
       target: null,
       layers: [
@@ -128,7 +140,8 @@ class MapaContainer extends Component {
         this.bingMaps,
         this.vector,
         this.cuencaRgVector,
-        this.cuencaRcVector
+        this.cuencaRcVector,
+        this.perforacionesVector
 
       ],
       view: new OlView({
